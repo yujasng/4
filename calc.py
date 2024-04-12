@@ -1,2 +1,2 @@
 def main():
-  print("We are subteam A")
+  print("We are subteam B")
