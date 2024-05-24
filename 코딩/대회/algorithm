@@ -1,0 +1,77 @@
+import time
+import numpy as np
+from matplotlib import image as mpimg
+from matplotlib import pyplot as plt
+# TODO 1: Import pyplot & image from matplotlib
+
+
+def hue(rgba):
+    max_index = np.where(rgba == max(rgba))[0][0]
+    delta = max(rgba)-min(rgba) + 0.000000001
+    Hue = 0
+    if max_index == 0:
+        Hue = 60*(rgba[1]-rgba[2])/delta
+    elif max_index == 1:
+        Hue = 60*(2 + (rgba[2]-rgba[0])/delta)
+    elif max_index == 2:
+        Hue = 60*(4 + (rgba[0]-rgba[1])/delta)
+    Light = (max(rgba)+min(rgba))/2
+    if delta == 0.000000001:
+        S = 0
+    else:    
+        S = delta/(1-abs(2*Light - 1))
+    if Hue < 0 : 
+        Hue  = Hue +360
+    value = [Hue,S*100,Light*100]
+    return value
+def color_decision(hueval):
+    if hueval[2] <= 20:
+        return 'black'
+    else:
+        return 'nah'
+
+
+
+def dfs(x,y,Image):
+    stack =[]
+    line = []
+    stack.append((x,y))
+    while stack:
+        cx, cy = stack.pop()
+        if color_decision(hue(Image)) == 'black' and buffer[cy][cx] == 0:
+            line.append((cx, cy))
+            buffer[cy][cx] = 1
+            for dx, dy in [(1, 0), (1, 1), (1, -1), (-1,-1), (-1, 1), (-1, 0), (0, 1), (0, -1)]:
+                nx, ny = cx + dx, cy + dy
+                if color_decision(hue(img[ny][nx])) == 'black' and buffer[ny][nx] == 0 and 0<=nx<W and 0<=ny<H:
+                    stack.append((nx, ny))
+                else:
+                    pass
+    return line
+
+
+def find_monitor(image):
+    max_line = []
+    #TODO_3 
+
+    for y in range(H):
+        for x in range(W):
+            if color_decision(hue(image[y][x])) == 'black' and buffer[y][x] == 0:
+                line = dfs(x, y, image[y][x])
+                if len(line) > len(max_line):
+                    max_line = line    
+    print (max_line)
+    return max_line
+    
+def find4point(linelist):
+    linelist.sort(key = lambda x:x[0])
+    print(linelist[0], linelist[-1])
+    linelist.sort(key = lambda x:x[1])
+    print(linelist[0], linelist[-1])
+    return
+#no need to change below code
+if __name__ == '__main__':
+    img = mpimg.imread('대회/wtf.PNG')
+    H,W,waht= (img.shape)
+    buffer = np.zeros([H,W])
+    find4point(find_monitor(img))
