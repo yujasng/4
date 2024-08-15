@@ -4,8 +4,7 @@ import numpy as np
 def apply_filter(input_, filter_):
     # TODO 2: Define the output as a zero array with the appropriate size
     lenth  = len(input_)-len(filter_) + 1
-    output = np.zeros(lenth)
-    print (output[0])
+
     # TODO 3: Apply the filter to the input using a loop
     for i in len(output):
         for j in len(filter_):

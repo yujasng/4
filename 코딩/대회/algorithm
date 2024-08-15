@@ -4,7 +4,6 @@ from matplotlib import image as mpimg
 from matplotlib import pyplot as plt
 # TODO 1: Import pyplot & image from matplotlib
 
-
 def hue(rgba):
     max_index = np.where(rgba == max(rgba))[0][0]
     delta = max(rgba)-min(rgba) + 0.000000001
@@ -31,7 +30,6 @@ def color_decision(hueval):
         return 'nah'
 
 
-
 def dfs(x,y,Image):
     stack =[]
     line = []
@@ -49,7 +47,6 @@ def dfs(x,y,Image):
                     pass
     return line
 
-
 def find_monitor(image):
     max_line = []
     #TODO_3 
@@ -63,6 +60,9 @@ def find_monitor(image):
     print (max_line)
     return max_line
     
+def line_prediction(image):
+    
+    
 def find4point(linelist):
     linelist.sort(key = lambda x:x[0])
     print(linelist[0], linelist[-1])
@@ -70,6 +70,17 @@ def find4point(linelist):
     print(linelist[0], linelist[-1])
     return
 #no need to change below code
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     img = mpimg.imread('대회/wtf.PNG')
     H,W,waht= (img.shape)
